@@ -2,13 +2,27 @@
   "version": 2,
   "builds": [
     { "src": "api/index.js", "use": "@vercel/node" },
-    { "src": "public/**",   "use": "@vercel/static" }
+    { "src": "public/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)",  "dest": "/api/index.js" },
-    { "src": "/(.*)",      "dest": "/public/$1" }
+    { "src": "/api/(.*)", "dest": "/api/index.js" },
+    { "src": "/(.*)", "dest": "/public/$1" }
   ],
   "env": {
-    "NODE_ENV": "production"
-  }
-} 
+    "NODE_ENV": "production",
+    "SESSION_SECRET": "@webauthn-spc-session-secret"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production",
+      "SESSION_SECRET": "@webauthn-spc-session-secret",
+      "SUPABASE_URL": "@supabase_url",
+      "SUPABASE_ANON_KEY": "@supabase_anon_key",
+      "REDIS_URL": "@redis_url",
+      "REDIS_PASSWORD": "@redis_password"
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/public/index.html" }
+  ]
+}

@@ -2,11 +2,11 @@ import cors from 'cors';
 import crypto from 'crypto';
 import { createHash } from 'crypto';
 import express from 'express';
-import session from 'express-session';
 import fs from 'fs/promises';
 import morgan from 'morgan';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { sessionMiddleware, clearSession } from '../lib/session.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,7 +30,11 @@ const KEY_FILE = path.join(__dirname, '../certs/key.pem');
 let users = new Map();
 let challenges = new Map();
 
+// Configuración de la aplicación
 app.set('trust proxy', 1); // Confiar en el proxy inverso
+
+// Middleware de sesión
+app.use(sessionMiddleware);
 
 // Helper function to verify WebAuthn registration response
 async function verifyWebAuthnRegistration(options) {
