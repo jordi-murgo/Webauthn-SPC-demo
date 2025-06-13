@@ -1,6 +1,6 @@
 # Demo de Secure Payment Confirmation (SPC)
 
-Implementación de prueba de la especificación W3C Secure Payment Confirmation usando WebAuthn y SimpleWebAuthn.
+Implementación de prueba de la especificación W3C Secure Payment Confirmation usando WebAuthn.
 
 ## Requisitos
 
